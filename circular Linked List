@@ -1,0 +1,143 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node{
+	int data;
+	struct node* next;	
+};
+struct node* head=NULL;
+
+void insertpos();
+void printlist();
+void insertbegin(int ele);
+void insertend(int ele);
+
+void delbegin(){
+	if(head==NULL){
+		printf("\nList id Empty");		
+	}else{
+	struct node* temp = head;
+	
+	while(temp->next!=head){
+		temp=temp->next;
+	}
+		temp->next=temp->next->next;
+		head=temp->next;
+	}
+}
+
+void delend(){
+	if(head==NULL){
+		printf("\nList id Empty");		
+	}
+	else{
+	struct node* temp = head;
+	while(temp->next->next!=head){
+		temp=temp->next;
+	}
+		temp->next=head;
+	}	
+}
+
+void delpos(){
+		if(head==NULL){
+		printf("\nList id Empty");		
+	}else{
+	int pos;
+printf("\nEnter the position: ");
+scanf("%d",&pos);
+	struct node* temp = head;
+
+for(int i=0;i<pos-2;i++){
+	temp=temp->next;
+}
+temp->next=temp->next->next;
+	
+}	
+}
+
+
+
+
+
+
+int main(){
+	
+insertbegin(5);
+insertbegin(4);
+insertend(34);
+printlist();
+printf("\n");
+delpos();
+printlist();
+
+
+	return 0;
+}
+
+
+void insertbegin(int ele){
+	struct node* ptr = (struct node*)malloc(sizeof(struct node));
+	ptr->data = ele;
+	
+	
+	if(head==NULL){
+		head=ptr;
+		ptr->next =head;
+	}else{
+		struct node* temp =head;
+		
+		while(temp->next!=head){
+			temp=temp->next;
+		}	
+	temp->next=ptr;
+	ptr->next=head;
+	head=ptr;	
+	}
+	
+}
+
+void insertend(int ele){
+	struct node* ptr = (struct node*)malloc(sizeof(struct node));
+	ptr->data = ele;
+	if(head==NULL){
+		head=ptr;
+		ptr->next =head;	
+		
+	}else{
+	struct node* temp=head;
+	while(temp->next!=head){
+		temp=temp->next;
+	}
+	temp->next=ptr;
+	ptr->next=head;
+	}	
+}
+
+void insertpos(){
+	int ele,pos;
+	
+	printf("\nEnter the position: ");
+	scanf("%d",&pos);
+	printf("\nEnter the element: ");
+	scanf("%d",&ele);	
+	struct node* ptr = (struct node*)malloc(sizeof(struct node));
+	ptr->data = ele;
+	struct node* temp=head;	
+	for(int i =0 ;i<pos-2;i++){
+		temp=temp->next;
+	}
+	ptr->next=temp->next;
+	temp->next=ptr;
+	
+}
+
+void printlist() {
+	struct node* temp =head;
+	do{
+	 printf("%d->",temp->data);
+		temp=temp->next;
+	}while(temp!=head);
+printf("(head)");
+}
+
+
